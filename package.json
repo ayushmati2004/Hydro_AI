@@ -1,0 +1,10 @@
+{
+  "name": "hydro-ai-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "cd frontend && npm ci && node ./node_modules/vite/bin/vite.js build",
+    "vercel-build": "npm run build",
+    "start": "cd frontend && npm run preview"
+  }
+}
