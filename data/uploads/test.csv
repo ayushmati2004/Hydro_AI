@@ -1,0 +1,2 @@
+date,crop,water_liters,nutrient_mg,light_hours,biomass,strategy
+2025-01-01,basil,1.0,50,10,0.12,static

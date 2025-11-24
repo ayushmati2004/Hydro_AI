@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,body,#root{height:100%}
+
+/* Site-wide background using user's image in public/images/site-hero.jpg
+	 Applied via CSS so it loads consistently and can be styled for dark/light modes. */
+body {
+	background-image: linear-gradient(rgba(2,6,23,0.18), rgba(2,6,23,0.18)), url('/images/site-hero.jpg');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+
+/* Optional darker overlay (separate element) to improve legibility */
+body::before{
+	content:'';
+	position:fixed;
+	inset:0;
+	background: rgba(2,6,23,0.18);
+	pointer-events:none;
+	z-index:12;
+}
+
+/* Custom animations and utilities */
+@layer utilities {
+	.animate-float {
+		animation: float 6s ease-in-out infinite;
+	}
+
+	.animate-content-fade {
+		animation: contentFade 900ms cubic-bezier(.2,.9,.3,1) both;
+	}
+}
+
+@keyframes float {
+	0% { transform: translateY(0px); }
+	50% { transform: translateY(-8px); }
+	100% { transform: translateY(0px); }
+}
+
+/* Hero gradient background helper */
+.hero-gradient {
+		background: linear-gradient(135deg, rgba(6,182,212,0.06), rgba(52,211,153,0.06));
+}
+
+@keyframes contentFade {
+	from { opacity: 0; transform: translateY(10px); }
+	to   { opacity: 1; transform: translateY(0); }
+}
+
+/* dark mode helper: when `.dark` is on the root, tailwind's dark styles apply, but add a few helpers */
+html.dark body{
+	background: #0b1220;
+}
+
+/* hero background helper class */
+.hero-bg::before{ content:''; position:absolute; inset:0; pointer-events:none }
+
+/* subtle glass overlay for light mode */
+.hero-bg > .absolute{ background: rgba(255,255,255,0.18) }
+
+/* dark mode adjustments */
+html.dark .hero-bg > .absolute{ background: rgba(2,6,23,0.42) }
+
+/* torn-edge decorative SVG placed at the bottom of the hero */
+.hero-torn { display:block; pointer-events:none }
+.hero-torn path { fill: rgba(10,12,18,0.12); }
+html.dark .hero-torn path { fill: rgba(2,6,23,0.55); }
+
+/* Right-side dot navigation */
+.right-dots { position:fixed; right:18px; top:50%; transform:translateY(-50%); z-index:60; display:flex; flex-direction:column; gap:.75rem }
+.right-dots a{ width:12px; height:12px; border-radius:9999px; display:block; background:rgba(255,255,255,0.25); border:2px solid rgba(255,255,255,0.12); box-shadow:0 4px 10px rgba(2,6,23,0.12); }
+.right-dots a.active{ background:linear-gradient(180deg,#14b8a6,#06b6d4); border-color:rgba(255,255,255,0.28) }
+html.dark .right-dots a{ background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.04) }
+
+/* content card slight border, padding and consistent backdrop */
+.content-card { background-color: rgba(255,255,255,0.88); backdrop-filter: blur(6px); border:1px solid rgba(2,6,23,0.04); padding:1.25rem }
+html.dark .content-card{ background-color: rgba(10,12,18,0.6); border:1px solid rgba(255,255,255,0.03) }
+
+/* Content card utility used throughout the site */
+.content-card {
+	background-color: rgba(255,255,255,0.85);
+	backdrop-filter: blur(4px);
+}
+
+html.dark .content-card{
+	background-color: rgba(10,12,18,0.6);
+}
+
+/* make sure main content sits on top of body background */
+main{ position:relative; z-index:20 }
+
